@@ -26,4 +26,4 @@ correct tokens based on a groundtruth sequence, optimizing cross
 entropy loss.
 
 
-Original Code by [ofirnachum]("https://github.com/ofirnachum/sequence_gan")
+Original Code by [ofirnachum](https://github.com/ofirnachum/sequence_gan)

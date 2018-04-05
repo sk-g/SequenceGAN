@@ -6,14 +6,16 @@ __doc__ = """Char-based Seq-GAN on data from a book."""
 
 import model
 import train
-
+import os
 import os.path
 import numpy as np
 import tensorflow as tf
 import random
 import subprocess
 import gzip
-
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '4'
+import warnings
+warnings.filterwarnings("ignore")
 EMB_DIM = 20
 HIDDEN_DIM = 25
 SEQ_LENGTH = 10
@@ -40,15 +42,10 @@ def get_data(download=not os.path.exists(DATA_FILE)):
              '-O', DATA_FILE])
 
     token_stream = []
-    
-    is_gzip = False
-    try:
-        open(DATA_FILE).read(2)
-    except UnicodeDecodeError:
-        is_gzip = True
+
     with codecs.open(DATA_FILE, 'r', 'utf-8',errors='ignore') as f:
         for line in f:
-            line = line #if not is_gzip else line.decode('utf-8')
+            line = line
             if ('Call me Ishmael.' in line or token_stream) and line.strip():
                 token_stream.extend(tokenize(line.strip().lower()))
                 token_stream.append(' ')
